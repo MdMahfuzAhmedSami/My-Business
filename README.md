@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয় - পুনর্মিলনী ২০২৭</title>
+    
+    <style>
+        /* স্কুলের ব্যাকগ্রাউন্ড ছবি (তোর আপলোড করা bg.jpg অটোমেটিক পাবে) */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url(Capture.JPG) no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container { max-width: 650px; margin: 30px auto; padding: 15px; }
+        
+        /* লোগো সেকশন */
+        .school-header { text-align: center; margin-bottom: 25px; }
+        .logo-box { width: 100px; height: 100px; background-color: white; border-radius: 50%; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 3px solid #4ade80; }
+        .logo-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        h1 { font-size: 24px; margin: 5px 0; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .subtitle { font-size: 18px; color: #4ade80; font-weight: bold; margin-top: 5px; }
+        
+        /* ইভেন্ট কাউন্টডাউন টাইমার */
+        .timer-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .time-box { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 10px; width: 65px; text-align: center; }
+        .time-number { font-size: 22px; font-weight: bold; color: #facc15; }
+        .time-label { font-size: 11px; color: #a7f3d0; }
+
+        /* অনুষ্ঠানের সময়সূচী (Schedule) */
+        .schedule-box { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; margin-bottom: 25px; backdrop-filter: blur(5px); }
+        .schedule-title { text-align: center; color: #facc15; margin-top: 0; font-size: 18px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
+        .schedule-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .schedule-time { color: #4ade80; font-weight: bold; min-width: 140px; }
+        .schedule-desc { text-align: right; color: #e2e8f0; }
+
+        /* ফরম ডিজাইন */
+        .reg-form { background: rgba(0, 0, 0, 0.6); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; font-weight: bold; color: #a7f3d0; font-size: 14px; }
+        input, select { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.9); color: #000; box-sizing: border-box; font-size: 15px; }
+        
+        /* গেঞ্জির সাইজ রো (Radio options) */
+        .size-options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+        .size-btn { background: #fff; color: #000; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .size-btn input { width: auto; margin-right: 5px; cursor: pointer; }
+
+        /* পেমেন্ট বাটন ও মার্চেন্ট বক্স */
+        .pay-info-btn { width: 100%; background: #eab308; color: black; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px; font-size: 15px; }
+        #merchant-box { display: none; background: #fff; color: #000; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 6px solid #16a34a; font-size: 14px; }
+
+        .submit-btn { width: 100%; background: #16a34a; color: white; padding: 15px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(22,163,74,0.4); }
+
+        /* ফ্যামিলি সেকশন */
+        #family-details { display: none; background: rgba(255,255,255,0.08); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px dashed rgba(255,255,255,0.2); }
+
+        /* আইডি কার্ড ডিজাইন (ফলাফল) */
+        #id-card { display: none; background: white; color: black; padding: 25px; border-radius: 15px; max-width: 420px; margin: 40px auto; text-align: center; border: 4px solid #16a34a; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card-header-bg { background: #16a34a; color: white; padding: 12px; margin: -25px -25px 20px -25px; border-radius: 10px 10px 0 0; }
+        .user-photo { width: 120px; height: 120px; border-radius: 8px; object-fit: cover; border: 3px solid #16a34a; margin-bottom: 10px; }
+        .print-btn { background: #2563eb; color: white; padding: 10px 25px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-ui">
+        <div class="school-header">
+            <div class="logo-box">
+                <img src="logo.png" alt="স্কুল লোগো">
+            </div>
+            <h1>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h1>
+            <p class="subtitle">ঐতিহাসিক পুনর্মিলনী উৎসব - ২০২৭</p>
+        </div>
+
+        <div class="timer-container">
+            <div class="time-box"><div class="time-number" id="days">00</div><div class="time-label">দিন</div></div>
+            <div class="time-box"><div class="time-number" id="hours">00</div><div class="time-label">ঘণ্টা</div></div>
+            <div class="time-box"><div class="time-number" id="minutes">00</div><div class="time-label">মিনিট</div></div>
+            <div class="time-box"><div class="time-number" id="seconds">00</div><div class="time-label">সেকেন্ড</div></div>
+        </div>
+
+        <div class="schedule-box">
+            <h3 class="schedule-title">📅 অনুষ্ঠানের সময়সূচী ও বিবরণ</h3>
+            <div class="schedule-item"><span class="schedule-time">০৯:০০ AM - ১০:০০ AM</span><span class="schedule-desc">প্রাক্তন শিক্ষার্থীদের আগমন ও কিট (গেঞ্জি) গ্রহণ</span></div>
+            <div class="schedule-item"><span class="schedule-time">১০:০০ AM - ১১:০০ AM</span><span class="schedule-desc">জাতীয় পতাকা উত্তোলন ও বর্ণাঢ্য র‍্যালি</span></div>
+            <div class="schedule-item"><span class="schedule-time">১১:০০ AM - ০১:৩০ PM</span><span class="schedule-desc">পবিত্র কোরআন তেলাওয়াত, স্মৃতিচারণ ও আলোচনা সভা</span></div>
+            <div class="schedule-item"><span class="schedule-time">০১:৩০ PM - ০৩:০০ PM</span><span class="schedule-desc">যোহরের নামাজ ও ঐতিহ্যবাহী মধ্যাহ্নভোজ</span></div>
+            <div class="schedule-item"><span class="schedule-time">০৩:০০ PM - ০৫:৩০ PM</span><span class="schedule-desc">মনোজ্ঞ সাংস্কৃতিক অনুষ্ঠান ও প্রীতি আড্ডা</span></div>
+            <div class="schedule-item"><span class="schedule-time">০৫:৩০ PM - ০৬:০০ PM</span><span class="schedule-desc">র‍্যাফেল ড্র, উপহার বিতরণ ও সমাপনী ঘোষণা</span></div>
+        </div>
+
+        <form class="reg-form" id="regForm" onsubmit="handleRegistration(event)">
+            <h3 style="text-align: center; color: #4ade80; margin-top: 0; margin-bottom: 20px;">📝 অনলাইন নিবন্ধন ফরম</h3>
+            
+            <div class="form-group">
+                <label>আপনার পূর্ণ নাম:</label>
+                <input type="text" id="uName" required placeholder="নাম লিখুন">
+            </div>
